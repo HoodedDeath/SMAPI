@@ -9,10 +9,35 @@
 
 
 ##########
-## Fetch values
+## Find the game folder
+##########
+possibleGamePaths=(
+    # override
+    "$HOME/StardewValley"
+
+    # Linux
+    "$HOME/GOG Games/Stardew Valley/game"
+    "$HOME/.steam/steam/steamapps/common/Stardew Valley"
+    "$HOME/.local/share/Steam/steamapps/common/Stardew Valley"
+    "$HOME/.var/app/com.valvesoftware.Steam/data/Steam/steamapps/common/Stardew Valley"
+
+    # macOS
+    "/Applications/Stardew Valley.app/Contents/MacOS"
+    "$HOME/Library/Application Support/Steam/steamapps/common/Stardew Valley/Contents/MacOS"
+)
+gamePath=""
+for possibleGamePath in "${possibleGamePaths[@]}"; do
+    if [[ -d "$possibleGamePath" ]]; then
+        gamePath="$possibleGamePath"
+        break
+    fi
+done
+
+
+##########
+## Preset values
 ##########
 # paths
-gamePath="/home/pathoschild/Stardew Valley"
 bundleModNames=("ConsoleCommands" "SaveBackup")
 
 # build configuration
@@ -62,7 +87,7 @@ for folder in ${folders[@]}; do
 
     echo "Compiling installer for $folder..."
     echo "-------------------------------------------------"
-    dotnet publish src/SMAPI.Installer --configuration $buildConfig -v minimal --runtime "$runtime" -p:OS="$msbuildPlatformName" -p:GamePath="$gamePath" -p:CopyToGameFolder="false" -p:PublishTrimmed=True -p:TrimMode=Link --self-contained true
+    dotnet publish src/SMAPI.Installer --configuration $buildConfig -v minimal --runtime "$runtime" -p:OS="$msbuildPlatformName" -p:GamePath="$gamePath" -p:CopyToGameFolder="false" --self-contained true
     echo ""
     echo ""
 
@@ -134,7 +159,7 @@ for folder in ${folders[@]}; do
     cp -r "$smapiBin/i18n" "$bundlePath/smapi-internal"
 
     # bundle smapi-internal
-    for name in "0Harmony.dll" "0Harmony.xml" "Mono.Cecil.dll" "Mono.Cecil.Mdb.dll" "Mono.Cecil.Pdb.dll" "MonoMod.Common.dll" "Newtonsoft.Json.dll" "Pathoschild.Http.Client.dll" "Pintail.dll" "TMXTile.dll" "SMAPI.Toolkit.dll" "SMAPI.Toolkit.xml" "SMAPI.Toolkit.CoreInterfaces.dll" "SMAPI.Toolkit.CoreInterfaces.xml" "System.Net.Http.Formatting.dll"; do
+    for name in "0Harmony.dll" "0Harmony.xml" "Markdig.dll" "Mono.Cecil.dll" "Mono.Cecil.Mdb.dll" "Mono.Cecil.Pdb.dll" "MonoMod.Common.dll" "Newtonsoft.Json.dll" "Pathoschild.Http.Client.dll" "Pintail.dll" "TMXTile.dll" "SMAPI.Toolkit.dll" "SMAPI.Toolkit.xml" "SMAPI.Toolkit.CoreInterfaces.dll" "SMAPI.Toolkit.CoreInterfaces.xml" "System.Net.Http.Formatting.dll"; do
         cp "$smapiBin/$name" "$bundlePath/smapi-internal"
     done
 
@@ -150,11 +175,6 @@ for folder in ${folders[@]}; do
     if [ $folder == "windows" ]; then
         cp "$smapiBin/System.Management.dll" "$bundlePath/smapi-internal"
     fi
-
-    # copy legacy .NET dependencies (remove in SMAPI 4.0.0)
-    cp "$smapiBin/System.Configuration.ConfigurationManager.dll" "$bundlePath/smapi-internal"
-    cp "$smapiBin/System.Runtime.Caching.dll" "$bundlePath/smapi-internal"
-    cp "$smapiBin/System.Security.Permissions.dll" "$bundlePath/smapi-internal"
 
     # copy bundled mods
     for modName in ${bundleModNames[@]}; do

@@ -36,6 +36,15 @@ in future SMAPI versions.
     "CheckForUpdates": true,
 
     /**
+     * Whether SMAPI should check whether the content files are present and unmodified. This should
+     * nearly always be enabled.
+     *
+     * If disabled, SMAPI will log a warning that it's disabled for visibility when someone helps
+     * you troubleshoot game issues.
+     */
+    "CheckContentIntegrity": true,
+
+    /**
      * Whether to enable features intended for mod developers. Currently this only makes TRACE-level
      * messages appear in the console.
      */
@@ -52,6 +61,13 @@ in future SMAPI versions.
      * loading, but bypasses a Visual Studio crash when debugging.
      */
     "RewriteMods": true,
+
+    /**
+     * Whether to fix the library mods use to patch game code, so it works with Stardew Valley.
+     *
+     * If you disable this, mods which use Harmony are likely to cause game crashes.
+     */
+    "FixHarmony": true,
 
     /**
      * Whether to make SMAPI file APIs case-insensitive (even if the filesystem is case-sensitive).

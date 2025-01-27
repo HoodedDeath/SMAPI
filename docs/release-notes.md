@@ -1,6 +1,271 @@
 ← [README](README.md)
 
 # Release notes
+## Upcoming release
+* For players:
+  * Fixed `log_context` command not disabling the extra logs when run again.
+
+* For external tools:
+  * Added toolkit method to read the compatibility list from a local copy of its Git repo.
+
+* For the web UI:
+  * Fixed search engines able to index uploaded logs and JSON files via the raw download option.
+  * Improved Content Patcher JSON schema:
+    * Updated for Content Patcher 2.5.0.
+    * Added format validation for token names.
+    * Fixed incorrect error when setting a config default to a boolean or number.
+
+## 4.1.10
+Released 18 December 2024 for Stardew Valley 1.6.14 or later.
+
+* For players:
+  * Updated for the upcoming Stardew Valley 1.6.15.
+  * Fixed errors when cross-playing between PC and Android.
+
+* For mod authors:
+  * Improved [Content Patcher JSON schema](technical/web.md#using-a-schema-file-directly) to allow boolean and numeric values in dynamic tokens.
+
+
+> [!IMPORTANT]  
+> **For players on macOS:**  
+> There are recent security changes in macOS. Make sure to follow the updated [install guide for
+> macOS](https://stardewvalleywiki.com/Modding:Installing_SMAPI_on_Mac) when installing or updating SMAPI.
+>
+> Players on Linux or Windows can ignore this.
+
+# 4.1.9
+Released 08 December 2024 for Stardew Valley 1.6.14 or later.
+
+* For players:
+  * Fixed compatibility with new macOS security restrictions (again).
+  * Fixed unable to override color schemes via `smapi-internal/config.user.json`.
+
+## 4.1.8
+Released 28 November 2024 for Stardew Valley 1.6.14 or later.
+
+* For players:
+  * Updated the mod compatibility blacklist.
+  * Fixed compatibility with new macOS security restrictions.
+  * Fixed crash with some rare combinations of mods involving Harmony and mod APIs.
+
+* For mod authors:
+  * Added `PathUtilities.CreateSlug` to get a safe Unicode string for use in special contexts like URLs and file paths.  
+    _For example, `PathUtilities.CreateSlug("some 例子?!/\\~ text")` becomes `"some-例子-text"`._
+  * `PathUtilities.IsSlug` now allows more Unicode characters.
+  * Updated [Pintail](https://github.com/Nanoray-pl/Pintail) 2.6.0 → 2.6.1 (see [changes](https://github.com/Nanoray-pl/Pintail/blob/master/docs/release-notes.md#261)).
+
+* For the web UI:
+  * Fixed log parser not highlighting update alerts for mods which SMAPI couldn't load.
+  * Fixed CurseForge links not shown for mods that have a CurseForge page.
+
+* For external tools:
+  * Revamped the mod compatibility list to simplify maintenance. It's now stored [in a Git repo](https://github.com/Pathoschild/SmapiCompatibilityList), which replaces the former [wiki page](https://stardewvalleywiki.com/Modding:Mod_compatibility).
+  * Added toolkit method to get the URL from an update key's site and mod ID.
+
+## 4.1.7
+Released 12 November 2024 for Stardew Valley 1.6.14 or later.
+
+* For players:
+  * Updated for Stardew Valley 1.6.14.
+  * Updated mod compatibility list.
+  * Fixed crash if a mod has a missing or invalid DLL.
+
+## 4.1.6
+Released 07 November 2024 for Stardew Valley 1.6.10 or later.
+
+* For players:
+  * Revamped message shown after a game update to avoid confusion.
+  * Added option to disable content integrity checks in `smapi-internal/config.json`. When disabled, SMAPI will log a warning for visibility when someone helps you troubleshoot game issues.
+
+* For mod authors:
+  * Fixed `translation.ApplyGenderSwitchBlocks(false)` not applied correctly.
+
+## 4.1.5
+Released 07 November 2024 for Stardew Valley 1.6.10 or later.
+
+* For players:
+  * Updated mod compatibility list.
+  * Fixed translation issues in some mods with SMAPI 4.1._x_.
+
+* For mod authors:
+  * Fixed `translation.UsePlaceholder(false)` also disabling custom fallback text in recent builds, not just the "no translation" placeholder.
+
+## 4.1.4
+Released 05 November 2024 for Stardew Valley 1.6.10 or later.
+
+* For players:
+  * Fixed a wide variety of mod errors and crashes after SMAPI 4.1.0 in some specific cases (e.g. Content Patcher "unable to find constructor" errors).
+
+* For mod authors:
+  * Removed the new private assembly references feature. This may be revisited in a future update once the dust settles on 1.6.9.
+  * Fixed error propagating edits to `Data/ChairTiles`.
+
+## 4.1.3
+Released 04 November 2024 for Stardew Valley 1.6.10 or later.
+
+* For players:
+  * Improved compatibility rewriters for Stardew Valley 1.6.9+.
+
+## 4.1.2
+Released 04 November 2024 for Stardew Valley 1.6.10 or later.
+
+* For players:
+  * Updated for Stardew Valley 1.6.10.
+  * Fixed various issues with custom maps loaded from `.tmx` files in Stardew Valley 1.6.9.
+
+## 4.1.1
+Released 04 November 2024 for Stardew Valley 1.6.9 or later.
+
+* For players:
+  * Fixed crash when loading saves containing a custom spouse room loaded from a `.tmx` file.
+
+## 4.1.0
+Released 04 November 2024 for Stardew Valley 1.6.9 or later. See [release highlights](https://www.patreon.com/posts/115304143).
+
+* For players:
+  * Updated for Stardew Valley 1.6.9.
+  * SMAPI now auto-detects missing or modified content files, and logs a warning if found.
+  * SMAPI now uses iTerm2 on macOS if it's installed (thanks to yinxiangshi!).
+  * SMAPI now enables GameMode on Linux if it's installed (thanks to noah1510!).
+  * SMAPI now anonymizes paths containing your home path (thanks to AnotherPillow!).
+  * Removed confusing "Found X mods with warnings:" log message.
+  * The installer on Linux now tries to open a terminal if needed (thanks to HoodedDeath!).
+  * Fixed installer not detecting Linux Flatpak install paths.
+  * Fixed various content issues for non-English players (e.g. content packs not detecting the current festival correctly).
+  * Fixed dependencies on obsolete redundant mods not ignored in some cases.
+  * Fixed issues in Console Commands:
+    * Fixed `list_items` & `player_add` not handling dried items, pickled forage, smoked fish, and specific bait correctly.
+    * Fixed `list_items` & `player_add` listing some flooring & wallpaper items twice.
+    * Fixed `show_data_files` & `show_game_files` no longer working correctly (thanks to jakerosado!).
+  * Fixed some mod overlays mispositioned when your UI scale is non-100% and zoom level is 100%.
+  * Fixed incorrect 'direct console access' warnings.
+  * Updated mod compatibility list.
+
+* For mod authors:
+  * Added support for [private assembly references](https://stardewvalleywiki.com/Modding:Modder_Guide/APIs/Manifest#Private_assemblies) (thanks to Shockah!).
+  * Added support for [i18n subfolders](https://stardewvalleywiki.com/Modding:Modder_Guide/APIs/Translation#i18n_folder) (thanks to spacechase0!).
+  * Added asset propagation for `Data/ChairTiles`.
+  * Added new C# API methods:
+    * Added `DoesAssetExist` methods to `helper.GameContent` and `helper.ModContent` (thanks to KhloeLeclair!).
+    * Added scroll wheel suppression via `helper.Input.SuppressScrollWheel()` (thanks to MercuriusXeno!).
+    * Added `PathUtilities.AnonymizePathForDisplay` to anonymize home paths (thanks to AnotherPillow!).
+  * Added parameter docs to event interfaces. This lets you fully document your event handlers like `/// <inheritdoc cref="IGameLoopEvents.SaveLoaded" />`.
+  * Translations now support [gender switch blocks](https://stardewvalleywiki.com/Modding:Dialogue#Gender_switch).
+  * Translations now support tokens in their placeholder text.
+  * SMAPI no longer blocks map edits which change the tilesheet order, since that no longer causes crashes in Stardew Valley 1.6.9.
+  * The SMAPI log now includes the assembly version of each loaded mod (thanks to spacechase0!).
+  * Updated dependencies, including...
+    * [FluentHttpClient](https://github.com/Pathoschild/FluentHttpClient#readme) 4.3.0 → 4.4.1 (see [changes](https://github.com/Pathoschild/FluentHttpClient/blob/develop/RELEASE-NOTES.md#441));
+    * [Pintail](https://github.com/Nanoray-pl/Pintail) 2.3.0 → 2.6.0 (see [changes](https://github.com/Nanoray-pl/Pintail/blob/master/docs/release-notes.md#260)).
+  * Fixed `content.Load` ignoring language override in recent versions.
+  * Fixed player sprites and building paint masks not always propagated on change.
+  * Fixed `.tmx` map tile sizes being premultiplied, which is inconsistent with the game's `.tbin` maps.
+  * Fixed various edge cases when chaining methods on `Translation` instances.
+
+* For the update check server:
+  * Rewrote update checks for mods on CurseForge and ModDrop to use new export API endpoints.  
+    _This should result in much faster update checks for those sites, and less chance of update-check errors when their servers are under heavy load._
+  * Added workaround for CurseForge auto-syncing prerelease versions with an invalid version number.
+
+* For the log parser:
+  * Clicking a checkbox in the mod list now always only changes that checkbox, to allow hiding a single mod.
+  * Fixed the wrong game folder path shown if the `Mods` folder path was customized.
+
+* For the JSON validator:
+  * Updated for Content Patcher 2.1.0 &ndash; 2.4.0, and fixed validation for `Priority` fields.
+  * Fixed incorrect errors shown for..
+    * some valid `Entries`, `Fields`, `MapProperties`, `MapTiles`, and `When` field values;
+    * `CustomLocations` entries which use the new [unique string ID](https://stardewvalleywiki.com/Modding:Common_data_field_types#Unique_string_ID) format;
+    * `AddWarps` warps when a location name contains a dot.
+
+* For the web API:
+  * The [anonymized metrics for update check requests](technical/web.md#modsmetrics) now counts requests by SMAPI and game version.
+
+## 4.0.8
+Released 21 April 2024 for Stardew Valley 1.6.4 or later.
+
+* For players:
+  * Added option to disable Harmony fix for players with certain crashes.
+  * Fixed crash for non-English players in split-screen mode when mods translate some vanilla assets.
+  * SMAPI no longer rewrites mods which use Harmony 1.x, to help reduce Harmony crashes.  
+    _This should affect very few mods that still work otherwise, and any Harmony mod updated after July 2021 should be unaffected._
+  * Updated mod compatibility list to prevent common crashes.
+
+* For the update check server:
+  * Rewrote update checks for mods on Nexus Mods to use a new Nexus API endpoint.  
+    _This should result in much faster update checks for Nexus, and less chance of update-check errors when the Nexus servers are under heavy load._
+
+## 4.0.7
+Released 18 April 2024 for Stardew Valley 1.6.4 or later.
+
+* For players:
+  * Updated for Stardew Valley 1.6.4.
+  * The installer now lists detected game folders with an incompatible version to simplify troubleshooting.
+  * When the installer asks for a game folder path, entering an incorrect path to a file inside it will now still select the folder.
+  * Fixed installer not detecting 1.6 compatibility branch.
+
+* For the web UI:
+  * Updated `manifest.json` JSON schema for the new `MinimumGameVersion` field (thanks to KhloeLeclair!).
+
+* For external tool authors:
+  * In the SMAPI toolkit, added a new `GetGameFoldersIncludingInvalid()` method to get all detected game folders and their validity type.
+
+## 4.0.6
+Released 07 April 2024 for Stardew Valley 1.6.0 or later.
+
+* For players:
+  * The SMAPI log file now includes installed mod IDs, to help with troubleshooting (thanks to DecidedlyHuman!).
+
+* For mod authors:
+  * Added optional [`MinimumGameVersion` manifest field](https://stardewvalleywiki.com/Modding:Modder_Guide/APIs/Manifest#Minimum_SMAPI_or_game_version).
+
+## 4.0.5
+Released 06 April 2024 for Stardew Valley 1.6.0 or later.
+
+* For players:
+  * The installer now deletes obsolete files from very old SMAPI versions again. (This was removed in SMAPI 4.0, but many players still had very old versions.)
+  * The installer now deletes Error Handler automatically if it's at the default path.
+  * Fixed mods sometimes not applying logic inside new buildings.
+  * Minor optimizations.
+  * Updated mod compatibility list.
+
+* For mod authors:
+  * Fixed world-changed events (e.g. `ObjectListChanged`) not working correctly inside freshly-constructed buildings.
+
+## 4.0.4
+Released 29 March 2024 for Stardew Valley 1.6.0 or later.
+
+* For players:
+  * Added `log_context` console command, which replaces `test_input` and logs more info like menu changes.
+  * Added [`--prefer-terminal-name` command-line argument](technical/smapi.md#command-line-arguments) to override which terminal SMAPI is launched with (thanks to test482!).
+  * Fixed some mods compiled for Stardew Valley 1.6.3+ not working in 1.6.0–1.6.2.
+  * Fixed SMAPI's "_Found warnings with X mods_" message counting hidden warnings.
+  * Improved translations. Thanks to RezaHidayatM (added Indonesian)!
+
+* For the web UI:
+  * Improved smapi.io colors for accessibility, converted PNG images to SVG, and updated Patreon logo (thanks to ishan!).
+  * Fixed JSON schema validation:
+    * Manifest `UpdateKeys` field now allows dots in the GitHub repo name.
+    * Fixed Content Patcher's `FromMapFile` and `FromFile` patterns.
+
+## 4.0.3
+Released 27 March 2024 for Stardew Valley 1.6.0 or later.
+
+* For players:
+  * Updated compatibility rewrites for Stardew Valley 1.6.3.
+  * Updated mod compatibility list.
+  * Tweaked `player_add` console command's error messages for clarity.
+
+## 4.0.2
+Released 24 March 2024 for Stardew Valley 1.6.0 or later.
+
+* For players:
+  * Updated mod compatibility list.
+  * Improved status for obsolete mods to be clearer that they can be removed.
+  * Disabled Extra Map Layers mod.
+    _Extra Map Layers mod caused visual issues like dark shadows in all locations with extra map layers, since the game now handles them automatically. SMAPI now disables Extra Map Layers and ignores dependencies on it._
+  * When using a custom `Mods` folder path, SMAPI now logs the game folder path to simplify troubleshooting.
+
 # 4.0.1
 Released 20 March 2024 for Stardew Valley 1.6.0 or later.
 
@@ -34,6 +299,7 @@ Released 19 March 2024 for Stardew Valley 1.6.0 or later. See [release highlight
 
 * For the web UI:
   * Updated JSON validator for Content Patcher 2.0.0.
+  * Added [anonymized metrics for update check requests](technical/web.md#modsmetrics).
   * Fixed uploaded log/JSON file expiry alway shown as renewed.
   * Fixed update check for mods with a prerelease version tag not recognized by the ModDrop API. SMAPI now parses the version itself if needed.
 
